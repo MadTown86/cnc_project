@@ -1,3 +1,4 @@
+#line 1 "D:\\DEVELOPER_FILES\\REPOSITORIES\\cnc_project\\.vscode\\arduino.json"
 {
     "board": "arduino:avr:uno",
     "port": "COM3",
