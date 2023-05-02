@@ -1,0 +1,5 @@
+{
+    "sketch": "cnc_home.ino",
+    "board": "arduino:avr:uno",
+    "port": "COM3"
+}

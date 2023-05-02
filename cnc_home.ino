@@ -22,7 +22,8 @@ int motorEnabled = 0;
 int motorSpeed = 0;
 int motorDirection = 1;
 
-void setup() {
+void setup()
+{
   // put your setup code here, to run once:
   Serial.begin(9600);
   pinMode(powerUpProcedure, INPUT);
@@ -34,29 +35,33 @@ void setup() {
   pinMode(enablePin, OUTPUT);
   digitalWrite(enablePin, LOW);
 
-  while (homeState != HIGH) {
-    
-    if (digitalRead(proxPin) == HIGH) {
-    homeState = 1;
-    } else {
-      while (digitalRead(proxPin) != HIGH) {
+  while (homeState != HIGH)
+  {
+
+    if (digitalRead(proxPin) == HIGH)
+    {
+      homeState = 1;
+    }
+    else
+    {
+      while (digitalRead(proxPin) != HIGH)
+      {
         /* Reverse */
         analogWrite(enablePin, 0);
         digitalWrite(controlPin1, LOW);
         digitalWrite(controlPin2, HIGH);
         analogWrite(enablePin, 150);
       }
-      
     }
-      if (digitalRead(proxPin) == HIGH) {
-        homeState = 1;
+    if (digitalRead(proxPin) == HIGH)
+    {
+      homeState = 1;
     }
   }
-
-  
 }
 
-void loop() {
+void loop()
+{
   delay(2000);
   Serial.print("\nProxPinState\n");
   Serial.print(proxSwitchState);
@@ -87,39 +92,46 @@ void loop() {
   onOffSwitchState = digitalRead(onOffSwitchStateSwitchPin);
   delay(1);
   directionSwitchState = digitalRead(directionSwitchPin);
-  motorSpeed = analogRead(potPin)/4;
+  motorSpeed = analogRead(potPin) / 4;
 
-  if(onOffSwitchState != previousOnOffSwitchState){
-    if(onOffSwitchState == HIGH){
+  if (onOffSwitchState != previousOnOffSwitchState)
+  {
+    if (onOffSwitchState == HIGH)
+    {
       motorEnabled = !motorEnabled;
     }
   }
 
-  if (directionSwitchState != previousDirectionSwitchState) {
-    if (directionSwitchState == HIGH) {
+  if (directionSwitchState != previousDirectionSwitchState)
+  {
+    if (directionSwitchState == HIGH)
+    {
       motorDirection = !motorDirection;
     }
   }
 
-  if (motorDirection == 1) {
+  if (motorDirection == 1)
+  {
     digitalWrite(controlPin1, HIGH);
     digitalWrite(controlPin2, LOW);
   }
 
-  else {
+  else
+  {
     digitalWrite(controlPin1, LOW);
     digitalWrite(controlPin2, HIGH);
   }
 
-  if (motorEnabled == 1) {
+  if (motorEnabled == 1)
+  {
     analogWrite(enablePin, motorSpeed);
   }
 
-  else {
+  else
+  {
     analogWrite(enablePin, 0);
   }
 
   previousDirectionSwitchState = directionSwitchState;
   previousOnOffSwitchState = onOffSwitchState;
-
 }
